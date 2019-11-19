@@ -43,8 +43,10 @@ This plugin is pretty simple - it provides:
 
 ## TODO
 
-- [ ] list roles available
-- [ ] login url to open web console (requires json create/parse)
+- [ ] list exec-profile names available (via ~/.aws/config)
+- [ ] login url to open web console (requires json create/parse) ([ref](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html#STSConsoleLink_programPython))
+- [ ] exec without exec-profile
+- [ ] prompt segment
 
 ## Thanks
 
