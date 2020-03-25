@@ -6,14 +6,17 @@
 # Aliases                                                            #
 #--------------------------------------------------------------------#
 alias sa='saml2aws'
-alias sal="saml2aws login --skip-prompt"
 alias salr="saml2aws list-roles --skip-prompt"
+
+function sal() {
+  saml2aws login --skip-prompt --session-duration=$SAML2AWS_LOGIN_SESSION_DURATION "$@"
+}
 
 function sae() {
   old_profile=$SAML2AWS_EXEC_PROFILE_ACTIVE
   export SAML2AWS_EXEC_PROFILE_ACTIVE=$1
   shift
-  saml2aws exec --exec-profile "$SAML2AWS_EXEC_PROFILE_ACTIVE" "$@"
+  saml2aws exec --session-duration=$SAML2AWS_SESSION_DURATION --exec-profile "$SAML2AWS_EXEC_PROFILE_ACTIVE" "$@"
   export SAML2AWS_EXEC_PROFILE_ACTIVE=$old_profile
 }
 
