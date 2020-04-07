@@ -102,9 +102,8 @@ function _saml2aws_find_browser() {
     # Detect the browser in launchservices
     # https://stackoverflow.com/a/32465364/808678
     local prefs=~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist
-    plutil -convert xml1 $prefs
-    grep 'https' -b3 $prefs | awk 'NR==2 {split($2, arr, "[><]"); print arr[3]}';
-    plutil -convert binary1 $prefs
+    plutil -convert xml1 $prefs -o - \
+      | grep 'https' -b3 $prefs | awk 'NR==2 {split($2, arr, "[><]"); print arr[3]}';
   else
     # TODO - other platforms
   fi
