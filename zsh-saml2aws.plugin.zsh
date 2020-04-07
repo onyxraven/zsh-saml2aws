@@ -57,8 +57,7 @@ function sac() {
         echo "${login_url}" | xargs -t nohup /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %U --no-first-run --new-window --disk-cache-dir=$(mktemp -d /tmp/chrome.XXXXXX) --user-data-dir=$(mktemp -d /tmp/chrome.XXXXXX) > /dev/null 2>&1 &!
         ;;
       *)
-        # NOTE PRs welcome to add your browser
-        echo "Sorry, I don't know how to launch your default browser ($browser) :-("
+        open -a Safari "${login_url}"
         ;;
     esac
 
