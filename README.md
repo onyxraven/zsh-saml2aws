@@ -52,13 +52,14 @@ This plugin is pretty simple - it provides:
 
 ## saml2aws configuration
 
-| ENV var                   | example                     | information                                                                                                                                               |
-| ------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SAML2AWS_SESSION_DURATION | 43200                       | Length of time (seconds) the federation session is available                                                                                              |
-| SAML2AWS_MFA              | OLP                         | Name of the MFA device to use. When unspecified, you will be prompted if there are many, and that is the string to put here. OneLogin Protect for example |  |
-| SAML2AWS_ROLE             | arn:aws:iam::$ID:role/$ROLE | ARN of the role to federate to. When unspecified, you will be prompted if there are many.                                                                 |
-| SAML2AWS_PROFILE          | saml                        | aws cli profile (in `~/.aws/config`) to use. `saml` by default.                                                                                           |
-| SAML2AWS_URL              | https://api.us.onelogin.com | http url to IDP, OneLogin for example.                                                                                                                    |
+| ENV var                         | example                     | information                                                                                                                                               |
+| ------------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SAML2AWS_LOGIN_SESSION_DURATION | 43200                       | Length of time (seconds) the "root" federation session is available. This can be up to 12 hours.                                                          |
+| SAML2AWS_SESSION_DURATION       | 3600                        | Length of time (seconds) the role assume session is available. This will always be <= 1 hour.                                                             |
+| SAML2AWS_MFA                    | OLP                         | Name of the MFA device to use. When unspecified, you will be prompted if there are many, and that is the string to put here. OneLogin Protect for example |
+| SAML2AWS_ROLE                   | arn:aws:iam::$ID:role/$ROLE | ARN of the role to federate to. When unspecified, you will be prompted if there are many.                                                                 |
+| SAML2AWS_PROFILE                | saml                        | aws cli profile (in `~/.aws/config`) to use. `saml` by default.                                                                                           |
+| SAML2AWS_URL                    | https://api.us.onelogin.com | http url to IDP, OneLogin for example.                                                                                                                    |
 
 ## script helper configuration
 
