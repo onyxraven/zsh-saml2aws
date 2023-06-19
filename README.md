@@ -56,6 +56,20 @@ In any case `<exec-profile>` is available in a shortcut alias below, it is posit
 | SAML2AWS_LOGIN_SESSION_DURATION | 43200   | Length of time (seconds) the "root" federation session is available. This can be up to 12 hours (in seconds). |
 | SAML2AWS_SESSION_DURATION       | 3600    | Length of time (seconds) the role assume session is available. This can be up to 1 hour (in seconds).         |
 
+## Examples
+
+Assume the `staging` profile and run an aws command
+
+```sh
+sae staging -- aws sts get-caller-identity
+```
+
+Assume the login role and start a shell (same as you are using) with that context
+
+```sh
+sash
+```
+
 ## Thanks
 
 - Inspired by [zsh-aws-vault](https://github.com/blimmer/zsh-aws-vault)
