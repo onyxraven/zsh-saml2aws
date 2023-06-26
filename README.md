@@ -36,7 +36,7 @@ plugins=(
 Use it like other oh-my-zsh plugins.
 
 ```bash
-zinit snippet https://github.com/onyxraven/zsh-saml2aws/blob/master/zsh-saml2aws.plugin.zsh
+zinit snippet https://github.com/onyxraven/zsh-saml2aws/blob/main/zsh-saml2aws.plugin.zsh
 ```
 
 ## Aliases
