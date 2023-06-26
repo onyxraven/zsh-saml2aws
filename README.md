@@ -2,14 +2,13 @@
 
 oh-my-zsh plugin for [saml2aws](https://github.com/Versent/saml2aws)
 
+## Requirements
+
+* [saml2aws](https://github.com/Versent/saml2aws) >= 2.23 (?)
+* [awscli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) >= 2
+* zsh as your shell
+
 ## Installation
-
-### Prerequisites
-
-You do need the following installed. These are OSX defaults, so this should be no surprise.
-
-- python (2 or 3)
-- curl
 
 ### [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 
@@ -32,64 +31,50 @@ plugins=(
 1. add `zgen load onyxraven/zsh-saml2aws` to your '!saved/save' block
 1. `zgen update`
 
-## Features
+### [zinit](https://github.com/zdharma-continuum/zinit)
 
-This plugin is pretty simple - it provides:
+Use it like other oh-my-zsh plugins.
 
-- aliases
+```bash
+zinit snippet https://github.com/onyxraven/zsh-saml2aws/blob/master/zsh-saml2aws.plugin.zsh
+```
 
-### Aliases
+## Aliases
+
+In any case `<exec-profile>` is available in a shortcut alias below, it is positional, but optional. If you do not specify a profile, it will use the 'base' role you have assumed. For these commands, any extra parameters are passed to `saml2aws`, so use `--` to separate your flags from a command. Each of the commands with a profile also have autocompletion from your loaded `~/.aws/config` file enabled.
 
 | Alias | parameters                 | description                                                                   |
 | ----- | -------------------------- | ----------------------------------------------------------------------------- |
 | sa    |                            | saml2aws command shortcut alias                                               |
-| sal   |                            | login to IDP (skips prompts by default)                                       |
-| sae   | \<exec-profile> \<command> | execute a command as the profile                                              |
-| sash  | \<exec-profile>            | open a shell as the profile                                                   |
+| sal   |                            | login to IDP (skips prompts by default, and uses the session duration var)    |
+| sae   | \<exec-profile> \<command> | execute a command as the profile, with the session duration var               |
+| sash  | \<exec-profile>            | open a shell as the profile, with the session duration var                    |
+| sas   | \<exec-profile>            | print shell export script for profile, with the session duration var          |
+| sase  | \<exec-profile>            | print env file format for profile, with the session duration var              |
 | salr  |                            | list roles available to login as                                              |
-| sac   |                            | Open a browser to the logged in AWS console                                   |
+| sac   | \<exec-profile>            | Open a browser to the logged in AWS console                                   |
 | said  |                            | output of `aws sts get-caller-identity` for assumed role (\$profile optional) |
 
 ## saml2aws configuration
 
-| ENV var                         | example                     | information                                                                                                                                               |
-| ------------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SAML2AWS_LOGIN_SESSION_DURATION | 43200                       | Length of time (seconds) the "root" federation session is available. This can be up to 12 hours.                                                          |
-| SAML2AWS_SESSION_DURATION       | 3600                        | Length of time (seconds) the role assume session is available. This will always be <= 1 hour.                                                             |
-| SAML2AWS_MFA                    | OLP                         | Name of the MFA device to use. When unspecified, you will be prompted if there are many, and that is the string to put here. OneLogin Protect for example |
-| SAML2AWS_ROLE                   | arn:aws:iam::$ID:role/$ROLE | ARN of the role to federate to. When unspecified, you will be prompted if there are many.                                                                 |
-| SAML2AWS_PROFILE                | saml                        | aws cli profile (in `~/.aws/config`) to use. `saml` by default.                                                                                           |
-| SAML2AWS_URL                    | https://api.us.onelogin.com | http url to IDP, OneLogin for example.                                                                                                                    |
+| ENV var                         | example | information                                                                                                   |
+| ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| SAML2AWS_LOGIN_SESSION_DURATION | 43200   | Length of time (seconds) the "root" federation session is available. This can be up to 12 hours (in seconds). |
+| SAML2AWS_SESSION_DURATION       | 3600    | Length of time (seconds) the role assume session is available. This can be up to 1 hour (in seconds).         |
 
-## script helper configuration
+## Examples
 
-| ENV var             | example           | information                                                                                     |
-| ------------------- | ----------------- | ----------------------------------------------------------------------------------------------- |
-| AWS_DEFAULT_REGION  | us-east-1         | Default console region                                                                          |
-| SAML2AWS_PL_BROWSER | com.google.chrome | set the browser opened for `sac`. By default will use your system default browser if available. |
+Assume the `staging` profile and run an aws command
 
-### sac - console login in private browsing window
+```sh
+sae staging -- aws sts get-caller-identity
+```
 
-> This alias is currently only supported in OSX.
+Assume the login role and start a shell (same as you are using) with that context
 
-This alias will open a new browser window after getting the temporary login URL for your federated login.
-
-You can specify a specific browser to handle your login URL by setting `SAML2AWS_PL_BROWSER` to the bundle name of the
-browser. By default, it will pick your default URL handler in MacOS. It supports the following browsers:
-
-| `SAML2AWS_PL_BROWSER` value | Browser | Description                                                                                                                               |
-| --------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `org.mozilla.firefox`       | Firefox | Creates and/or opens a profile with the same name as your aws-vault profile. This allows for multiple profiles to be open simultaneously. |
-| `com.google.chrome`         | Chrome  | Opens a new private browsing window for the session. This allows for multiple profiles to be open simultaneously.                         |
-
-## TODO
-
-- [ ] list exec-profile names available (via ~/.aws/config)
-- [ ] login url to get directly to an assumed role
-  - at least, to the 'share' url. must parse profile (python?)
-- [ ] exec without exec-profile ?
-- [ ] prompt segment
-- [ ] replace curl with python? or replace python.
+```sh
+sash
+```
 
 ## Thanks
 
