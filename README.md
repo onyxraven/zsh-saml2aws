@@ -2,6 +2,12 @@
 
 oh-my-zsh plugin for [saml2aws](https://github.com/Versent/saml2aws)
 
+## Requirements
+
+* [saml2aws](https://github.com/Versent/saml2aws) >= 2.23 (?)
+* [awscli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) >= 2
+* zsh as your shell
+
 ## Installation
 
 ### [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)

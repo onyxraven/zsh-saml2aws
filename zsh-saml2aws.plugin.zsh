@@ -61,7 +61,7 @@ function sase() {
 # Completions                                                        #
 #--------------------------------------------------------------------#
 
-compctl -K _saml2aws_profiles sae sash said sac sase
+compdef _saml2aws_profiles sae sash said sac sase
 
 #--------------------------------------------------------------------#
 # Private Functions                                                  #
@@ -76,4 +76,5 @@ function _saml2aws_profiles_string() {
 
 function _saml2aws_profiles() {
   reply=($(_saml2aws_profiles_string))
+  _arguments "1::AWS profile:($reply)"
 }
