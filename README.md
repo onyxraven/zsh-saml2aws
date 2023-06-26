@@ -35,7 +35,7 @@ zinit snippet https://github.com/onyxraven/zsh-saml2aws/blob/master/zsh-saml2aws
 
 ## Aliases
 
-In any case `<exec-profile>` is available in a shortcut alias below, it is positional, but optional. If you do not specify a profile, it will use the 'base' role you have assumed. For these commands, any extra parameters are passed to `saml2aws`, so use `--` to separate your flags from a command.
+In any case `<exec-profile>` is available in a shortcut alias below, it is positional, but optional. If you do not specify a profile, it will use the 'base' role you have assumed. For these commands, any extra parameters are passed to `saml2aws`, so use `--` to separate your flags from a command. Each of the commands with a profile also have autocompletion from your loaded `~/.aws/config` file enabled.
 
 | Alias | parameters                 | description                                                                   |
 | ----- | -------------------------- | ----------------------------------------------------------------------------- |

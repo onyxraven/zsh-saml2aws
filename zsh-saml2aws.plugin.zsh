@@ -56,3 +56,24 @@ function sase() {
     saml2aws script --shell=env "$@"
   fi
 }
+
+#--------------------------------------------------------------------#
+# Completions                                                        #
+#--------------------------------------------------------------------#
+
+compctl -K _saml2aws_profiles sae sash said sac sase
+
+#--------------------------------------------------------------------#
+# Private Functions                                                  #
+#--------------------------------------------------------------------#
+
+# Note this was lifted from the oh-my-zsh plugin https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/aws/aws.plugin.zsh
+function _saml2aws_profiles_string() {
+  aws --no-cli-pager configure list-profiles 2> /dev/null && return
+  [[ -r "${AWS_CONFIG_FILE:-$HOME/.aws/config}" ]] || return 1
+  grep --color=never -Eo '\[.*\]' "${AWS_CONFIG_FILE:-$HOME/.aws/config}" | sed -E 's/^[[:space:]]*\[(profile)?[[:space:]]*([^[:space:]]+)\][[:space:]]*$/\2/g'
+}
+
+function _saml2aws_profiles() {
+  reply=($(_saml2aws_profiles_string))
+}
